@@ -1,6 +1,19 @@
-import React from 'react'
+import React, {useState} from 'react'
 
 function Movieform() {
+
+  const [movies, setMovies] = useState({
+    name: "",
+    rating: "",
+    duration: ""
+  });
+
+  function handleChange(event){
+    const {name, value} = event.target;
+    setMovies(prevMovies => {
+      return {...prevMovies, [name]: value};
+    });
+  }
 
   return (
     <section>
@@ -13,6 +26,8 @@ function Movieform() {
               id='name'
               placeholder='Enter Movie Name'
               data-testid='nameInput'
+              value={movies.name}
+              onChange={handleChange}
             />
           </div>
           <div className='layout-column mb-15'>
