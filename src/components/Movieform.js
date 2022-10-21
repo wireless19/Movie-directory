@@ -1,8 +1,8 @@
 import React, {useState} from 'react'
 
-function Movieform() {
+function Movieform(props) {
 
-  const [movies, setMovies] = useState({
+  const [movie, setMovie] = useState({
     name: "",
     rating: "",
     duration: ""
@@ -10,15 +10,26 @@ function Movieform() {
 
   function handleChange(event){
     const {name, value} = event.target;
-    setMovies(prevMovies => {
+    setMovie(prevMovies => {
       return {...prevMovies, [name]: value};
     });
+  }
+
+  function handleSubmit(event){
+    props.onAdd(movie);
+    setMovie({
+      name: "",
+      rating: "",
+      duration: ""
+    });
+    event.preventDefault();
   }
 
   return (
     <section>
       <div className='card pa-30'>
-        <form onSubmit={ e => e.preventDefault() }>
+        <form onSubmit={handleSubmit}>
+        {/* <form> */}
           <div className='layout-column mb-15'>
             <label htmlFor='name' className='mb-3'>Movie Name</label>
             <input 
@@ -26,7 +37,7 @@ function Movieform() {
               id='name'
               placeholder='Enter Movie Name'
               data-testid='nameInput'
-              value={movies.name}
+              value={movie.name}
               onChange={handleChange}
             />
           </div>
@@ -37,6 +48,8 @@ function Movieform() {
               id='ratings'
               placeholder='Enter Rating on a scale of 1 to 100'
               data-testid='ratingsInput'
+              value={movie.rating}
+              onChange={handleChange}
             />
           </div>
           <div className='layout-column mb-30'>
@@ -46,6 +59,8 @@ function Movieform() {
               id='duration'
               placeholder='Enter duration in hours or minutes'
               data-testid='durationInput'
+              value={movie.duration}
+              onChange={handleChange}
             />
           </div>
           {/* Use this div when time format is invalid */}
