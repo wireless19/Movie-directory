@@ -24,3 +24,5 @@ yarn-error.log*
 .env
 junit.xml
 unit.xml
+
+.md
