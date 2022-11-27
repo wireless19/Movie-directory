@@ -46,18 +46,20 @@ function Movieform(props) {
       return;
     }
 
+    const hoursReSingle = /^\d[h]$/;
     const hoursRe = /^\d.\d[h]$/;
     const minReTwod = /^\d\d[m]$/;
     const minRethreed = /^\d\d\d[m]$/
 
-    if (movieDuration.match(minReTwod) || movieDuration.match(minRethreed) || movieDuration.match(hoursRe)) {
-      let duration = movieDuration;
+    if (movieDuration.match(minReTwod) || movieDuration.match(minRethreed) || movieDuration.match(hoursRe) || movieDuration.match(hoursReSingle)) {
+      let duration = movieDuration.split("h")[0].concat("Hrs");
+      // duration = movieDuration.split("m")[0];
       if (movieDuration.match(minReTwod) || movieDuration.match(minRethreed)) {
         duration = movieDuration.split("m")[0];
         duration = duration / 60;
-        duration = parseInt(duration).toFixed(1).concat("h");
+        duration = parseInt(duration).toFixed(1).concat("Hrs");
       }
-      props.onAdd(movieName, movieRating, duration);
+      props.onAdd(movieName, movieRating.concat("/100"), duration);
     } else {
       setErrMessDura(true);
     }

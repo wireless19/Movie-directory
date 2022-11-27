@@ -44,7 +44,7 @@ function App() {
               <Movieslist
                 key={index}
                 name={movie.movieName}
-                rating={movie.movieRating.concat("/100")}
+                rating={movie.movieRating}
                 duration={movie.movieDuration}
               />);
           })}
